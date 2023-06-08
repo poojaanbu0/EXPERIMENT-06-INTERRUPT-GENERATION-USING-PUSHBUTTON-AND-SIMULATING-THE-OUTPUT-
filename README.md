@@ -87,6 +87,7 @@ https://engineeringxpert.com/wp-content/uploads/2022/04/26.png
 
 ## STM 32 CUBE PROGRAM :
 
+```
 Developed by: POOJA A
 reg no: 212222240072
 
@@ -311,6 +312,7 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+```
 
 ## Output screen shots of proteus  :
  ![image](https://github.com/poojaanbu0/EXPERIMENT-06-INTERRUPT-GENERATION-USING-PUSHBUTTON-AND-SIMULATING-THE-OUTPUT-/assets/119390329/f7c23eb1-21e2-490c-b7d8-7e91182cee78)
