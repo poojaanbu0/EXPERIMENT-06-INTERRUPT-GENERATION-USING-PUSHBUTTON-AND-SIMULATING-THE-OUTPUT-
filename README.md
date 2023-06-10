@@ -91,45 +91,39 @@ https://engineeringxpert.com/wp-content/uploads/2022/04/26.png
 */
 Developed by: POOJA A
 reg no: 212222240072
-
+*/
 #include "main.h"
-#include"stdio.h"
+#include "stdio.h"
+#include "stdbool.h"
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 
- 
 int main(void)
 {
-  
   HAL_Init();
-
   SystemClock_Config();
-
- 
+  
   MX_GPIO_Init();
-  
-  
+ 
   while (1)
   {
-    
   }
+  
 }
- void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-  {
-  	if((GPIO_Pin==GPIO_PIN_1))
-  	{
-  		HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_0);
-  	}
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if ((GPIO_Pin == GPIO_PIN_0))
+	{
+		HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_1);
+	}
 }
-
 
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
   
@@ -146,7 +140,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  
+ 
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -160,53 +154,55 @@ void SystemClock_Config(void)
   }
 }
 
-
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-
- 
-  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
-
+  
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
   
   GPIO_InitStruct.Pin = GPIO_PIN_0;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  
+  GPIO_InitStruct.Pin = GPIO_PIN_1;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
- 
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-
-  HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
 }
 
-
 void Error_Handler(void)
 {
-  
   __disable_irq();
   while (1)
   {
   }
 }
-*/
+
+#ifdef  USE_FULL_ASSERT
+
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  
+}
+#endif 
 ```
 
 ## Output screen shots of proteus  :
- ![image](https://github.com/poojaanbu0/EXPERIMENT-06-INTERRUPT-GENERATION-USING-PUSHBUTTON-AND-SIMULATING-THE-OUTPUT-/assets/119390329/f7c23eb1-21e2-490c-b7d8-7e91182cee78)
+LED OFF:
+![image](https://github.com/poojaanbu0/EXPERIMENT-06-INTERRUPT-GENERATION-USING-PUSHBUTTON-AND-SIMULATING-THE-OUTPUT-/assets/119390329/8617992a-7a6d-470f-b865-7c3790339005)
+LED ON:
+![image](https://github.com/poojaanbu0/EXPERIMENT-06-INTERRUPT-GENERATION-USING-PUSHBUTTON-AND-SIMULATING-THE-OUTPUT-/assets/119390329/3b43dc9d-93ce-4a03-ad1a-a0d6c4396b18)
 
- ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
- ![image](https://github.com/poojaanbu0/EXPERIMENT-06-INTERRUPT-GENERATION-USING-PUSHBUTTON-AND-SIMULATING-THE-OUTPUT-/assets/119390329/aed2cc28-5fdd-4cb9-b1cb-9f42f8740eec)
- 
+ ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE
+ ![image](https://github.com/poojaanbu0/EXPERIMENT-06-INTERRUPT-GENERATION-USING-PUSHBUTTON-AND-SIMULATING-THE-OUTPUT-/assets/119390329/7b85ec96-a8ca-45e0-baba-9679794b6f73)
+
+
 ## Result :
 Interfacing a push button and interrupt genrateion is simulated using proteus 
